@@ -1,6 +1,10 @@
 package lambdasinaction.chap3;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
 import static java.util.Comparator.comparing;
 
 public class Sorting {
@@ -47,6 +51,13 @@ public class Sorting {
         private Integer weight = 0;
         private String color = "";
 
+        public Apple() {
+            this(100, "red");
+        }
+        public Apple(Integer weight) {
+            this(weight, "red");
+        }
+
         public Apple(Integer weight, String color){
             this.weight = weight;
             this.color = color;
@@ -79,6 +90,20 @@ public class Sorting {
     static class AppleComparator implements Comparator<Apple> {
         public int compare(Apple a1, Apple a2){
             return a1.getWeight().compareTo(a2.getWeight());
+        }
+    }
+
+    class demo {
+        public void demotest() {
+            Supplier<Apple> c1 = Apple::new;
+            Apple d1 = c1.get();
+
+            Function<Integer, Apple> c2 = Apple::new;
+            Apple d2 = c2.apply(100);
+
+            Predicate<Apple> redApple = apple -> apple.getColor().equals("red");
+
+            Predicate<Apple> notRed = redApple.negate();
         }
     }
 }
